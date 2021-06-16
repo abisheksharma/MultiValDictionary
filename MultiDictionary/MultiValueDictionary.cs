@@ -4,21 +4,21 @@ using System.Collections.Generic;
 
 namespace MultiDictionary
 {
-    public class MultiValueDictionary<TKey, TValue>
+    public class MultiValueDictionary<TKey, TValue> : IMultiValueDictionary<TKey, TValue>
     {
-        private Dictionary<string, List<string>> dict;
+        private Dictionary<TKey, List<TValue>> dict;
 
         public MultiValueDictionary()
         {
             // initialize a new instance of MultiValueDictionary with default initial capacity
-            dict = new Dictionary<string, List<string>>();
+            dict = new Dictionary<TKey, List<TValue>>();
         }
         // Gets each key in this MultivalueDict that has one or more values
-        public IEnumerable<string> Keys => dict.Keys;
+        public IEnumerable<TKey> Keys => dict.Keys;
         // Return number of keys with one or more values
         public int Count => dict.Count;
         // Add the key and val to the multivaluedict, if key already exist just add the value to that key
-        public void Add(string key, string val)
+        public void Add(TKey key, TValue val)
         {           
             if (dict.ContainsKey(key))
             {
@@ -26,7 +26,7 @@ namespace MultiDictionary
             }
             else
             {
-                dict.Add(key, new List<string>() { val });
+                dict.Add(key, new List<TValue>() { val });
             }
         }
         // Removed all teh items in the MultiValueDict
@@ -35,12 +35,12 @@ namespace MultiDictionary
             dict.Clear();
         }
         // Returns true if the MultiValueDict contains the key
-        public bool ContainsKey(string key)
+        public bool ContainsKey(TKey key)
         {            
             return dict.ContainsKey(key);
         }
         // Removed the key and all its value from the MultiValueDict 
-        public void Remove(string key)
+        public void Remove(TKey key)
         {         
             if (dict.ContainsKey(key))
             {
@@ -48,32 +48,32 @@ namespace MultiDictionary
             }
         }
         // Removed the given value from the key in MultiValueDict and if there are no value left it removed the key as well
-        public void Remove(string key, string val)
+        public void Remove(TKey key, TValue val)
         {           
-            if (dict.TryGetValue(key, out List<string> collection) && collection.Remove(val))
+            if (dict.TryGetValue(key, out List<TValue> collection) && collection.Remove(val))
             {
                 if (collection.Count == 0)
                     dict.Remove(key);
             }
         }
         // Returns true if the MultiValueDict contains the key/val combination
-        public bool Contains(string key, string val)
+        public bool Contains(TKey key, TValue val)
         {           
-            return (dict.TryGetValue(key, out List<string> collection) && collection.Contains(val));
+            return (dict.TryGetValue(key, out List<TValue> collection) && collection.Contains(val));
         }
         // Returns list of values associated with the provided key
-        public List<string> this[string key]
+        public List<TValue> this[TKey key]
         {
             get
             {
-                if (dict.TryGetValue(key, out List<string> collection))
+                if (dict.TryGetValue(key, out List<TValue> collection))
                     return collection;
 
                 throw new KeyNotFoundException();
             }
         }
         // Get an enumerator over the key/value in the MultiValueDict
-        public IEnumerator<KeyValuePair<string, string>> GetEnumerator()
+        public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
             foreach (var entry in dict)
             {
@@ -81,7 +81,7 @@ namespace MultiDictionary
 
                 foreach (var item in collection)
                 {
-                    yield return new KeyValuePair<string, string>(entry.Key, item);
+                    yield return new KeyValuePair<TKey, TValue>(entry.Key, item);
                 }
             }
         }
