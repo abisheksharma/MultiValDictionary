@@ -1,5 +1,4 @@
-﻿using Microsoft.Collections.Extensions;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 
 namespace MultiDictionary
@@ -26,7 +25,8 @@ namespace MultiDictionary
 
         static void ListenForInput()
         {
-            MultiValueDictionary<string, string> multiValDict = new MultiValueDictionary<string, string>();
+            var multiValDict = new MultiValueDictionary<string, string>();
+
             while (true)
             {
                 Console.Write(">");
@@ -82,7 +82,8 @@ namespace MultiDictionary
                     }
                     catch (Exception)
                     {
-                        throw;
+                        Console.WriteLine("Invalid Command.");
+                        //throw;
                     }
                     
                 }
@@ -94,9 +95,12 @@ namespace MultiDictionary
 
         private static void RegisterServices()
         {
-            var collection = new ServiceCollection(); //create a collection/container to hold the services information
-            collection.AddSingleton<IMultiValueDictHelper, MultiValueDictHelper>(); // add the service to the collection
-            serviceProvider = collection.BuildServiceProvider(); //to fetch the requested service from the container create serviceCollection
+            //create a collection/container to hold the services information
+            var collection = new ServiceCollection(); 
+            // add the service to the collection
+            collection.AddSingleton<IMultiValueDictHelper, MultiValueDictHelper>();
+            //to fetch the requested service from the container create serviceCollection
+            serviceProvider = collection.BuildServiceProvider(); 
         }
 
         private static void DisposeServices()
@@ -120,9 +124,13 @@ namespace MultiDictionary
                 DisposeServices();
                 Environment.Exit(0);
             }
-            else
+            if(resp.ToLower() == "no")
             {
                 return;
+            }
+            else
+            {
+                ExitApp();
             }
         }
         #endregion

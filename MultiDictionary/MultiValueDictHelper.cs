@@ -1,5 +1,4 @@
-﻿using Microsoft.Collections.Extensions;
-using System;
+﻿using System;
 
 namespace MultiDictionary
 {
@@ -25,11 +24,8 @@ namespace MultiDictionary
             var i = 1;
             foreach (var item in multiValDict)
             {
-                foreach (var member in item.Value)
-                {
-                    Console.WriteLine($"{i}) {item.Key}: {member}");
-                    ++i;
-                }
+                Console.WriteLine($"{i}) {item.Key}: {item.Value}");
+                ++i;
             }
         }
         // Gets all the keys in the dict.
@@ -52,12 +48,11 @@ namespace MultiDictionary
         // Gets all the members in the dict.
         public void GetAllMembers(MultiValueDictionary<string, string> multiValDict)
         {
+            var i = 1;
             foreach (var item in multiValDict)
             {
-                foreach (var val in item.Value)
-                {
-                    Console.WriteLine(val);
-                }
+                Console.WriteLine($"{i}) {item.Value}");
+                ++i;
             }
         }
         // Gets members for a key
@@ -111,7 +106,7 @@ namespace MultiDictionary
             {
                 Console.WriteLine("Error, member does not exist.");
             }
-        }  
+        }
 
     }
 }

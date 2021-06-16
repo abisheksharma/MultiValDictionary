@@ -1,5 +1,4 @@
-﻿using Microsoft.Collections.Extensions;
-
+﻿
 namespace MultiDictionary
 {
     internal interface IMultiValueDictHelper
