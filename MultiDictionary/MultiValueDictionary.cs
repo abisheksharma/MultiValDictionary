@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MultiDictionary
 {
-    public class MultiValueDictionary<TKey, TValue> : IEnumerable<KeyValuePair<string, string>>
+    public class MultiValueDictionary<TKey, TValue>
     {
         private Dictionary<string, List<string>> dict;
 
@@ -84,11 +84,6 @@ namespace MultiDictionary
                     yield return new KeyValuePair<string, string>(entry.Key, item);
                 }
             }
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
         }
 
     }
