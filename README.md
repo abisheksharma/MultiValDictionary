@@ -4,7 +4,6 @@ Multi-Value Dictionary
 
 A multi-value dictionary is a dictionary that can store multiple values per key.
 
-This simple console application uses the Microsoft library "MultiValueDictionary" found in "Microsoft.Experimental.Collections" library which is available through Nuget package manager.
 
 The commands available include:
 
